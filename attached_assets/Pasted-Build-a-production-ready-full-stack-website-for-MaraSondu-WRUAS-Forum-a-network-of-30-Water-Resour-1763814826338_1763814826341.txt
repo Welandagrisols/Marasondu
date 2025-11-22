@@ -1,0 +1,147 @@
+Build a production-ready full-stack website for MaraSondu WRUAS Forum - a network of 30 Water Resource Users Associations in Kenya's Lake Victoria Basin working with Water Resources Authority.
+
+TECH STACK:
+- Frontend: React 18 + TypeScript + Vite
+- Styling: Tailwind CSS
+- Backend: Node.js + Express
+- Database: PostgreSQL (with SQLite fallback for dev)
+- CMS: Strapi or custom admin panel
+- Forms: Nodemailer for contact/newsletter
+- File upload: Multer for photos (when available)
+- Auth: Simple JWT for admin access
+
+BRAND DESIGN:
+Create logo assets:
+- SVG logo: Water droplet + two rivers forming "M" + leaf elements
+- Color system:
+  * --primary-blue: #0D5C7D
+  * --primary-aqua: #1E8BA6
+  * --secondary-green: #2D5F3F
+  * --secondary-light-green: #5A9367
+  * --accent-orange: #E67E22
+  * --neutral-white: #FFFFFF
+  * --neutral-gray: #F8F9FA
+  * --text-dark: #2C3E50
+
+Typography:
+- Headings: Inter (Google Fonts)
+- Body: System font stack
+
+CRITICAL FEATURES:
+
+1. ADMIN PANEL (Priority - so you can update content):
+   Route: /admin (password protected)
+   
+   Dashboard sections:
+   - Blog Posts: Create, edit, delete posts (rich text editor with images)
+   - Portfolio Projects: Add/edit conservation projects
+   - WRUA Profiles: Add WRUA details as you get them
+   - Funding Opportunities: Add/track opportunities
+   - Newsletter Subscribers: View list, export CSV
+   - Contact Form Messages: View submissions
+   - Media Library: Upload photos
+   - Settings: Update stats, text content
+   
+   Simple authentication:
+   - Username: admin
+   - Password: (you set during setup)
+   - JWT token, 24hr expiry
+   
+2. API ENDPOINTS:
+
+   Public APIs:
+   - GET /api/projects - list projects (with filters)
+   - GET /api/projects/:id - single project
+   - GET /api/wruas - WRUA directory
+   - GET /api/blog - blog posts (paginated)
+   - GET /api/blog/:slug - single post
+   - GET /api/stats - impact statistics
+   - POST /api/contact - contact form submission
+   - POST /api/newsletter - newsletter signup
+   
+   Admin APIs (auth required):
+   - POST /api/admin/login
+   - CRUD for projects, wruas, blog posts
+   - POST /api/admin/upload - image upload
+   - GET /api/admin/messages - contact form inbox
+   - GET /api/admin/subscribers - newsletter list
+
+3. DATABASE SCHEMA:
+```sql
+   projects:
+     id, title, slug, description, location, category,
+     image_url, gallery_images (JSON), impact_metrics (JSON),
+     sdgs (JSON), funding_needed, timeline, status,
+     created_at, updated_at
+   
+   wruas:
+     id, name, location, lat, lng, focus_areas (JSON),
+     contact_person, email, phone, description, status,
+     member_since, created_at
+   
+   blog_posts:
+     id, title, slug, content (rich text), excerpt,
+     author, published_date, category, tags (JSON),
+     featured_image, status (draft/published)
+   
+   funding_opportunities (for future internal tool):
+     id, name, source, amount, deadline, focus_areas,
+     alignment_score, status, notes
+   
+   contact_messages:
+     id, name, email, organization, subject, message,
+     created_at, read (boolean)
+   
+   newsletter_subscribers:
+     id, email, subscribed_at, active (boolean)
+   
+   site_settings:
+     key, value (JSON for stats, text content)
+```
+
+4. SITE STRUCTURE (same as Lovable prompt above, but with backend):
+
+   All 8 pages: Home, About, Vision/Portfolio, Network, Impact, Funding, News, Contact
+   
+   Key differences for Replit:
+   - Real database-driven content
+   - Admin panel for updates
+   - API integration ready for future internal tool
+   - File upload system
+   - Email notifications working
+   - Newsletter integration (Mailchimp API ready)
+
+5. CONTENT MANAGEMENT FLOW:
+
+   You can update via admin panel:
+   - Write blog post → Save → Auto-publishes to News page
+   - Add WRUA profile → Shows in Network directory + map
+   - Upload photos → Available in media library for projects
+   - Update stats → Live on homepage + Impact page
+   - Add funding opportunity → (internal tracking, not public yet)
+
+6. DEPLOYMENT:
+   - Environment variables for secrets
+   - Database migrations included
+   - Seed data with placeholders
+   - PM2 config for process management
+   - Nginx config template
+   - SSL ready (Certbot instructions)
+
+INITIAL SEED DATA:
+- 6 sample projects (same as Lovable prompt)
+- 8 placeholder WRUA profiles
+- 3 initial blog posts
+- Sample impact statistics
+- Contact info and settings
+
+UNIQUE BACKEND FEATURES:
+- Weekly digest email automation (cron job)
+- Automatic sitemap generation
+- Image optimization on upload
+- CSV export for data
+- API documentation (Swagger)
+- Rate limiting on public APIs
+- CORS configured for future mobile app
+
+Make this production-grade, secure, scalable, and easy for a non-technical admin to update through the admin panel.
