@@ -9,9 +9,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and description */}
           <div className="md:col-span-2">
-            <Logo className="h-12 w-auto mb-4" />
+            <Logo className="h-14 w-auto mb-4" />
             <p className="text-muted-foreground text-sm max-w-md">
-              A network of 30 Water Resource Users Associations working together
+              A collaborative network of stakeholders working together
               to conserve and protect water resources in Kenya's Lake Victoria Basin.
             </p>
           </div>
@@ -22,30 +22,30 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/about">
-                  <a className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-footer-about">
+                  <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer" data-testid="link-footer-about">
                     About Us
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href="/portfolio">
-                  <a className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-footer-portfolio">
+                  <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer" data-testid="link-footer-portfolio">
                     Our Projects
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href="/network">
-                  <a className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-footer-network">
-                    WRUA Network
-                  </a>
+                  <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer" data-testid="link-footer-network">
+                    Stakeholder Network
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href="/news">
-                  <a className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-footer-news">
+                  <span className="text-muted-foreground hover:text-primary transition-colors cursor-pointer" data-testid="link-footer-news">
                     News & Updates
-                  </a>
+                  </span>
                 </Link>
               </li>
             </ul>
@@ -87,7 +87,7 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
           <p>
-            &copy; {new Date().getFullYear()} MaraSondu WRUAS Forum. All rights reserved.
+            &copy; {new Date().getFullYear()} MaraSondu Stakeholders Forum. All rights reserved.
           </p>
         </div>
       </div>

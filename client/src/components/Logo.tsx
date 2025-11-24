@@ -1,11 +1,11 @@
-export function Logo({ className = "h-10 w-auto" }: { className?: string }) {
+export function Logo({ className = "h-16 w-auto" }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 200 60"
+      viewBox="0 0 280 60"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      aria-label="MaraSondu WRUAS Forum"
+      aria-label="MaraSondu Stakeholders Forum"
     >
       {/* Water droplet */}
       <path
@@ -37,11 +37,11 @@ export function Logo({ className = "h-10 w-auto" }: { className?: string }) {
       />
       
       {/* Text */}
-      <text x="65" y="25" className="fill-foreground font-bold text-lg" style={{ fontSize: '14px', fontFamily: 'Inter, sans-serif' }}>
+      <text x="65" y="25" className="fill-foreground font-bold text-lg" style={{ fontSize: '18px', fontFamily: 'Inter, sans-serif' }}>
         MaraSondu
       </text>
-      <text x="65" y="40" className="fill-muted-foreground text-xs" style={{ fontSize: '10px', fontFamily: 'Inter, sans-serif' }}>
-        WRUAS Forum
+      <text x="65" y="42" className="fill-muted-foreground text-xs" style={{ fontSize: '12px', fontFamily: 'Inter, sans-serif' }}>
+        Stakeholders Forum
       </text>
     </svg>
   );

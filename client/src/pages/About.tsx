@@ -29,7 +29,7 @@ export default function About() {
     {
       year: "2015",
       title: "Forum Established",
-      description: "MaraSondu WRUAS Forum was founded with 15 founding member associations.",
+      description: "MaraSondu Stakeholders Forum was founded with 15 founding member associations.",
     },
     {
       year: "2017",

@@ -22,28 +22,28 @@ export function Navigation() {
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" data-testid="link-home">
-            <a className="flex items-center hover-elevate rounded-md px-2 py-1">
+            <div className="flex items-center hover-elevate rounded-md px-2 py-1">
               <Logo />
-            </a>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
-                <a
+                <span
                   data-testid={`link-${link.label.toLowerCase()}`}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors hover-elevate ${
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors hover-elevate cursor-pointer ${
                     location === link.href
                       ? "text-primary"
                       : "text-foreground hover:text-primary"
                   }`}
                 >
                   {link.label}
-                </a>
+                </span>
               </Link>
             ))}
             <Link href="/contact">
@@ -81,17 +81,17 @@ export function Navigation() {
           <div className="px-4 pt-2 pb-4 space-y-1">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
-                <a
+                <div
                   onClick={() => setMobileMenuOpen(false)}
                   data-testid={`link-mobile-${link.label.toLowerCase()}`}
-                  className={`block px-3 py-2 rounded-md text-base font-medium hover-elevate ${
+                  className={`block px-3 py-2 rounded-md text-base font-medium hover-elevate cursor-pointer ${
                     location === link.href
                       ? "text-primary bg-primary/10"
                       : "text-foreground"
                   }`}
                 >
                   {link.label}
-                </a>
+                </div>
               </Link>
             ))}
             <Link href="/contact">
