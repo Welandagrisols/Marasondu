@@ -68,7 +68,7 @@ export default function Home() {
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Protecting Water Resources for
-            <span className="block text-chart-3">Climate Resilient Agriculture</span>
+            <span className="block text-chart-3">Climate Resilient Livelihoods</span>
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             A collaborative network of 30 Water Resource Users Associations working together
