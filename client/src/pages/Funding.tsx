@@ -33,11 +33,11 @@ export default function Funding() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[400px] flex items-center justify-center bg-gradient-to-br from-primary via-chart-4 to-primary overflow-hidden">
+      <section className="relative flex items-center justify-center bg-gradient-to-br from-primary via-chart-4 to-primary overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600')] bg-cover bg-center opacity-20"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/80 to-primary/60"></div>
         
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 md:py-24">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Funding Opportunities
           </h1>
