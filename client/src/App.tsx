@@ -146,30 +146,10 @@ function Router() {
                 <Route path="/admin/projects" component={AdminProjects} />
                 <Route path="/admin/blog" component={AdminBlog} />
                 <Route path="/admin/messages" component={AdminMessages} />
-                <Route path="/admin/wruas">
-                  <div className="text-center py-12">
-                    <h2 className="text-2xl font-bold mb-4">WRUAs Management</h2>
-                    <p className="text-muted-foreground">Feature coming soon</p>
-                  </div>
-                </Route>
-                <Route path="/admin/funding">
-                  <div className="text-center py-12">
-                    <h2 className="text-2xl font-bold mb-4">Funding Opportunities</h2>
-                    <p className="text-muted-foreground">Feature coming soon</p>
-                  </div>
-                </Route>
-                <Route path="/admin/subscribers">
-                  <div className="text-center py-12">
-                    <h2 className="text-2xl font-bold mb-4">Newsletter Subscribers</h2>
-                    <p className="text-muted-foreground">Feature coming soon</p>
-                  </div>
-                </Route>
-                <Route path="/admin/settings">
-                  <div className="text-center py-12">
-                    <h2 className="text-2xl font-bold mb-4">Settings</h2>
-                    <p className="text-muted-foreground">Feature coming soon</p>
-                  </div>
-                </Route>
+                <Route path="/admin/wruas" component={AdminDashboard} />
+                <Route path="/admin/funding" component={AdminDashboard} />
+                <Route path="/admin/subscribers" component={AdminDashboard} />
+                <Route path="/admin/settings" component={AdminDashboard} />
                 <Route component={AdminDashboard} />
               </Switch>
             </AdminLayout>
