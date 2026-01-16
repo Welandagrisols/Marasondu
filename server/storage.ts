@@ -112,14 +112,14 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createProject(insertProject: InsertProject): Promise<Project> {
-    const [project] = await db.insert(projects).values(insertProject).returning();
+    const [project] = await db.insert(projects).values(insertProject as any).returning();
     return project;
   }
 
   async updateProject(id: string, updateData: Partial<InsertProject>): Promise<Project | undefined> {
     const [project] = await db
       .update(projects)
-      .set({ ...updateData, updatedAt: new Date() })
+      .set({ ...updateData, updatedAt: new Date() } as any)
       .where(eq(projects.id, id))
       .returning();
     return project || undefined;
@@ -140,14 +140,14 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createWrua(insertWrua: InsertWrua): Promise<Wrua> {
-    const [wrua] = await db.insert(wruas).values(insertWrua).returning();
+    const [wrua] = await db.insert(wruas).values(insertWrua as any).returning();
     return wrua;
   }
 
   async updateWrua(id: string, updateData: Partial<InsertWrua>): Promise<Wrua | undefined> {
     const [wrua] = await db
       .update(wruas)
-      .set(updateData)
+      .set(updateData as any)
       .where(eq(wruas.id, id))
       .returning();
     return wrua || undefined;
@@ -173,14 +173,14 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createBlogPost(insertBlogPost: InsertBlogPost): Promise<BlogPost> {
-    const [post] = await db.insert(blogPosts).values(insertBlogPost).returning();
+    const [post] = await db.insert(blogPosts).values(insertBlogPost as any).returning();
     return post;
   }
 
   async updateBlogPost(id: string, updateData: Partial<InsertBlogPost>): Promise<BlogPost | undefined> {
     const [post] = await db
       .update(blogPosts)
-      .set({ ...updateData, updatedAt: new Date() })
+      .set({ ...updateData, updatedAt: new Date() } as any)
       .where(eq(blogPosts.id, id))
       .returning();
     return post || undefined;
@@ -201,14 +201,14 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createFundingOpportunity(insertOpportunity: InsertFundingOpportunity): Promise<FundingOpportunity> {
-    const [opportunity] = await db.insert(fundingOpportunities).values(insertOpportunity).returning();
+    const [opportunity] = await db.insert(fundingOpportunities).values(insertOpportunity as any).returning();
     return opportunity;
   }
 
   async updateFundingOpportunity(id: string, updateData: Partial<InsertFundingOpportunity>): Promise<FundingOpportunity | undefined> {
     const [opportunity] = await db
       .update(fundingOpportunities)
-      .set(updateData)
+      .set(updateData as any)
       .where(eq(fundingOpportunities.id, id))
       .returning();
     return opportunity || undefined;
