@@ -54,7 +54,7 @@ export default function Portfolio() {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1600')] bg-cover bg-center opacity-20"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-primary/80 to-primary/60"></div>
         
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 md:py-24">
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12 md:py-16">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Our Portfolio
           </h1>
