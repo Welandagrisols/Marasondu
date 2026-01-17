@@ -37,12 +37,14 @@ function LoadingFallback() {
 
 function Router() {
   const [isAdminAuth, setIsAdminAuth] = useState(false);
+  const [isInitializing, setIsInitializing] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
     if (token) {
       setIsAdminAuth(true);
     }
+    setIsInitializing(false);
   }, []);
 
   const handleLogin = (token: string) => {
@@ -54,6 +56,10 @@ function Router() {
     setIsAdminAuth(false);
     window.location.href = '/admin/login';
   };
+
+  if (isInitializing) {
+    return <LoadingFallback />;
+  }
 
   return (
     <Switch>
@@ -154,17 +160,19 @@ function Router() {
           }
           return (
             <AdminLayout onLogout={handleLogout}>
-              <Switch>
-                <Route path="/admin/dashboard" component={AdminDashboard} />
-                <Route path="/admin/projects" component={AdminProjects} />
-                <Route path="/admin/blog" component={AdminBlog} />
-                <Route path="/admin/messages" component={AdminMessages} />
-                <Route path="/admin/wruas" component={AdminDashboard} />
-                <Route path="/admin/funding" component={AdminDashboard} />
-                <Route path="/admin/subscribers" component={AdminDashboard} />
-                <Route path="/admin/settings" component={AdminDashboard} />
-                <Route component={AdminDashboard} />
-              </Switch>
+              <Suspense fallback={<div className="flex items-center justify-center p-8"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>}>
+                <Switch>
+                  <Route path="/admin/dashboard" component={AdminDashboard} />
+                  <Route path="/admin/projects" component={AdminProjects} />
+                  <Route path="/admin/blog" component={AdminBlog} />
+                  <Route path="/admin/messages" component={AdminMessages} />
+                  <Route path="/admin/wruas" component={AdminDashboard} />
+                  <Route path="/admin/funding" component={AdminDashboard} />
+                  <Route path="/admin/subscribers" component={AdminDashboard} />
+                  <Route path="/admin/settings" component={AdminDashboard} />
+                  <Route component={AdminDashboard} />
+                </Switch>
+              </Suspense>
             </AdminLayout>
           );
         }}
