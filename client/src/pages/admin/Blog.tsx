@@ -50,21 +50,29 @@ export default function BlogPage() {
     status: "draft",
   });
 
-  const { data: posts, isLoading } = useQuery({
+  const { data: posts, isLoading } = useQuery<BlogPost[]>({
     queryKey: ['/api/blog'],
   });
 
   const createMutation = useMutation({
     mutationFn: async (data: any) => {
-      const token = localStorage.getItem('admin_token');
       const payload = {
         ...data,
         tags: data.tags.split(',').map((tag: string) => tag.trim()).filter(Boolean),
       };
-      return apiRequest('POST', '/api/admin/blog', {
-        headers: { Authorization: `Bearer ${token}` },
-        body: payload,
+      const response = await fetch('/api/admin/blog', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('admin_token')}`
+        },
+        body: JSON.stringify(payload)
       });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create blog post');
+      }
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/blog'] });
@@ -78,17 +86,25 @@ export default function BlogPage() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: any }) => {
-      const token = localStorage.getItem('admin_token');
       const payload = {
         ...data,
         tags: typeof data.tags === 'string'
           ? data.tags.split(',').map((tag: string) => tag.trim()).filter(Boolean)
           : data.tags,
       };
-      return apiRequest('PUT', `/api/admin/blog/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-        body: payload,
+      const response = await fetch(`/api/admin/blog/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('admin_token')}`
+        },
+        body: JSON.stringify(payload)
       });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to update blog post');
+      }
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/blog'] });
@@ -102,10 +118,16 @@ export default function BlogPage() {
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      const token = localStorage.getItem('admin_token');
-      return apiRequest('DELETE', `/api/admin/blog/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await fetch(`/api/admin/blog/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('admin_token')}`
+        }
       });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to delete blog post');
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/blog'] });
@@ -186,7 +208,7 @@ export default function BlogPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {posts?.map((post: BlogPost) => (
+            {Array.isArray(posts) && posts.map((post: BlogPost) => (
               <TableRow key={post.id} data-testid={`row-blog-${post.id}`}>
                 <TableCell className="font-medium">{post.title}</TableCell>
                 <TableCell>{post.author}</TableCell>

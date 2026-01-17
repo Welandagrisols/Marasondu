@@ -27,6 +27,8 @@ import AdminProjects from "./pages/admin/Projects";
 import AdminBlog from "./pages/admin/Blog";
 import AdminMessages from "./pages/admin/Messages";
 
+import AdminFunding from "./pages/admin/Funding";
+
 function LoadingFallback() {
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -167,7 +169,7 @@ function Router() {
                   <Route path="/admin/blog" component={AdminBlog} />
                   <Route path="/admin/messages" component={AdminMessages} />
                   <Route path="/admin/wruas" component={AdminDashboard} />
-                  <Route path="/admin/funding" component={AdminDashboard} />
+                  <Route path="/admin/funding" component={AdminFunding} />
                   <Route path="/admin/subscribers" component={AdminDashboard} />
                   <Route path="/admin/settings" component={AdminDashboard} />
                   <Route component={AdminDashboard} />
