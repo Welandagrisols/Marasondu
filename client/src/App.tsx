@@ -134,6 +134,10 @@ function Router() {
         {() => isAdminAuth ? <Redirect to="/admin" /> : <AdminLogin onLogin={handleLogin} />}
       </Route>
 
+      <Route path="/admin">
+        {() => !isAdminAuth ? <Redirect to="/admin/login" /> : <Redirect to="/admin/dashboard" />}
+      </Route>
+
       <Route path="/admin/:rest*">
         {() => {
           if (!isAdminAuth) {
@@ -142,7 +146,7 @@ function Router() {
           return (
             <AdminLayout onLogout={handleLogout}>
               <Switch>
-                <Route path="/admin" component={AdminDashboard} />
+                <Route path="/admin/dashboard" component={AdminDashboard} />
                 <Route path="/admin/projects" component={AdminProjects} />
                 <Route path="/admin/blog" component={AdminBlog} />
                 <Route path="/admin/messages" component={AdminMessages} />
