@@ -26,6 +26,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export default function AdminLogin({ onLogin }: { onLogin: (token: string) => void }) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -39,27 +40,37 @@ export default function AdminLogin({ onLogin }: { onLogin: (token: string) => vo
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('/api/admin/login', {
+      const endpoint = isRegistering ? '/api/admin/register' : '/api/admin/login';
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        const { token } = await response.json();
-        localStorage.setItem('admin_token', token);
-        onLogin(token);
-        toast({
-          title: "Welcome back!",
-          description: "Successfully logged in to admin panel.",
-        });
+        if (isRegistering) {
+          toast({
+            title: "Success",
+            description: "Account created. You can now login.",
+          });
+          setIsRegistering(false);
+        } else {
+          const { token } = await response.json();
+          localStorage.setItem('admin_token', token);
+          onLogin(token);
+          toast({
+            title: "Welcome back!",
+            description: "Successfully logged in to admin panel.",
+          });
+        }
       } else {
-        throw new Error("Invalid credentials");
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Action failed");
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({
-        title: "Login failed",
-        description: "Invalid username or password.",
+        title: "Error",
+        description: error.message || "Something went wrong.",
         variant: "destructive",
       });
     } finally {
@@ -75,7 +86,9 @@ export default function AdminLogin({ onLogin }: { onLogin: (token: string) => vo
             <Logo className="h-16" />
           </div>
           <CardTitle className="text-2xl">Admin Panel</CardTitle>
-          <CardDescription>Sign in to manage your content</CardDescription>
+          <CardDescription>
+            {isRegistering ? "Create a new admin account" : "Sign in to manage your content"}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -108,14 +121,25 @@ export default function AdminLogin({ onLogin }: { onLogin: (token: string) => vo
                 )}
               />
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isSubmitting}
-                data-testid="button-login"
-              >
-                {isSubmitting ? "Signing in..." : "Sign In"}
-              </Button>
+              <div className="space-y-3">
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={isSubmitting}
+                  data-testid="button-login"
+                >
+                  {isSubmitting ? "Processing..." : (isRegistering ? "Create Admin" : "Sign In")}
+                </Button>
+                
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full"
+                  onClick={() => setIsRegistering(!isRegistering)}
+                >
+                  {isRegistering ? "Back to Sign In" : "Need to create the first admin?"}
+                </Button>
+              </div>
             </form>
           </Form>
         </CardContent>
