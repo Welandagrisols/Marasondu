@@ -1,5 +1,5 @@
 import { Switch, Route, Redirect } from "wouter";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navigation } from "./components/Navigation";
 import { Footer } from "./components/Footer";
 import { AdminLayout } from "./components/AdminLayout";
+import { Loader2 } from "lucide-react";
 
 // Public pages
 import Home from "./pages/Home";
@@ -25,6 +26,14 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import AdminProjects from "./pages/admin/Projects";
 import AdminBlog from "./pages/admin/Blog";
 import AdminMessages from "./pages/admin/Messages";
+
+function LoadingFallback() {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+    </div>
+  );
+}
 
 function Router() {
   const [isAdminAuth, setIsAdminAuth] = useState(false);

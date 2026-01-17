@@ -1,22 +1,30 @@
 import { useQuery } from "@tanstack/react-query";
-import { Users, FileText, Droplets, DollarSign, Mail, MessageSquare } from "lucide-react";
+import { Users, FileText, Droplets, DollarSign, Mail, MessageSquare, Loader2 } from "lucide-react";
 import { StatsCard } from "@/components/StatsCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { BlogPost, ContactMessage } from "@shared/schema";
 
 export default function AdminDashboard() {
-  const { data: stats } = useQuery<{ wruas: number; projects: number; hectares: number; communities: number }>({
+  const { data: stats, isLoading: statsLoading } = useQuery<{ wruas: number; projects: number; hectares: number; communities: number }>({
     queryKey: ['/api/stats'],
   });
 
-  const { data: recentPosts } = useQuery<BlogPost[]>({
+  const { data: recentPosts, isLoading: postsLoading } = useQuery<BlogPost[]>({
     queryKey: ['/api/blog'],
   });
 
-  const { data: messages } = useQuery<ContactMessage[]>({
+  const { data: messages, isLoading: messagesLoading } = useQuery<ContactMessage[]>({
     queryKey: ['/api/admin/messages'],
   });
+
+  if (statsLoading || postsLoading || messagesLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   const unreadMessages = messages?.filter(m => !m.read).length || 0;
 
